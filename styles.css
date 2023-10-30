@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+img {
+  max-height: 70vh;
+  width: auto;
+}
+.carousel{
+    width:70vw;
+    margin: 0 auto;
+}
+.carousel-container{
+    background-image: linear-gradient(to bottom,rgb(116, 126, 128) ,rgba(0, 0, 0, 0.772) 55%);
+}
+.container-fluid{
+    background-color: black;
+    gap:1rem;
+}
+.navbar-nav{
+    gap:1rem;
+}
+.navbar{
+    padding: 0;
+}
+.navbar-brand{
+    color: white;
+}
+.navbar-brand:hover,.nav-brand:focus{
+    color: white;
+     scale: 120%;
+}
+.nav-link{
+    color: white;
+}
+.nav-link:hover,.nav-link:focus{
+    scale: 120%;
+    color:white;
+}
+.disableit{
+ cursor: not-allowed;
+}
+.expandsize{
+   flex-basis: 2rem;
+   flex-grow: 1;
+}
+.active{
+    background-color:white;
+}
