@@ -48,3 +48,17 @@ img {
 .active{
     background-color:white;
 }
+.flex{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin:2rem 20%;
+    border: 2px solid;
+    padding: 1rem;
+    background-color: black;
+    color: white;
+    gap: 0.5rem;
+}
+.appointment{
+    background-image:radial-gradient(ellipse, skyblue,aliceblue);
+}
