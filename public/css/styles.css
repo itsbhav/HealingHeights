@@ -63,6 +63,21 @@ img {
     color: white;
     gap: 0.5rem;
 }
+.flex-row{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    /* margin:2rem 20%; */
+    border: 2px solid;
+    padding: 0.5rem;
+    /* background-color: black; */
+    /* color: white; */
+    gap: 0.5rem;
+}
+.card{
+    width: 5rem;
+    height: 5rem;
+}
 .appointment{
     background-image:radial-gradient(ellipse, skyblue,aliceblue);
 }

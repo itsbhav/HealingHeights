@@ -18,11 +18,12 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
-    <title>Book_Your_Visit</title>
+    <script type="module"  src="/medicine.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="true"></script> -->
+    <title>Pharmacy Store</title>
 </head>
-<body class="appointment">
-     <nav class="navbar navbar-expand-lg bg-body-tertiary">
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/healing_heights">Healing_heights</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,13 +38,13 @@
                     <a class="nav-link disableit">Symptom_Analyzer</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" href="/book_your_visit">Book_Your_Visit</a>
+                    <a class="nav-link" href="/book_your_visit">Book_Your_Visit</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="/blood_reserves">Blood_Reserves</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/pharmacy">Pharmacy Store</a>
+                    <a class="nav-link active" href="/pharmacy">Pharmacy Store</a>
                     </li>
                 </ul>
                 <div class="expandsize"></div>
@@ -53,44 +54,22 @@
             </div>
         </div>
     </nav>
-    <form action="/book_your_visit" method="post" class="flex" >
-        <fieldset>
-        <legend> Basic Information: </legend>
-        </fieldset>
-          <label for="Name">Full Name </label>
-          <input type="text" name="Name" id="Name">
-          <label for="Hospital">Hospital/Doctor Name: </label>
-          <select id="Hospital" name="Hospital">
-            <% for (var i=0;i<data.data.length;i++){ %>
-                <option value="<%=data.data[i]%>"><%=data.data[i]%></option>
-           <% }%>
-          </select>
-          <label for="date">Date</label>
-          <input type="date" name="date" id="date">
-          <label for="freeSlots">Your Comfortable slots</label>
-          <select id="freeSlots" name="freeSlots">
-            <% for (var i=8,j=10;i<20;i+=2,j+=2){ %>
-                <%var a="AM"%>
-                <%var b="AM"%>
-                <%if(i>=12){%>
-                     <%a="PM"%>
-                <%}%>
-                <%if(j>=12){%>
-                     <%b="PM"%>
-                <%}%>
-                <option value="<%=i%>"><%=(i%12==0)?(12):(i%12)%>&nbsp;<%=a%>&nbsp;to&nbsp;<%=(j%12==0)?(12):(j%12)%>&nbsp;<%=b%></option>
-           <% }%>
-          </select>
-          <label for="UserAdd">Address</label>
-          <textarea name="userAd" id="UserAdd" cols="30" rows="10"></textarea>
-          <label for="Symptoms">Describe your Symptoms</label>
-          <textarea name="symptom" id="symptom" cols="30" rows="10"></textarea>
-          <label for="tel">Contact No.</label>
-          <input type="tel" name="tel" id="tel">
-           <label for="email">Email</label>
-           <input type="email" name="email" id="email">
-          <button type="submit">Submit</button>
+    <form action="/pharmacy" method="post">
+        <input type="text" name="search" id="search" placeholder="search">
     </form>
+    <div class="flex-row">
+    <%for(var i=0;i<Object.keys(data).length;i++){%>
+    <div class="card flex" style="width: 18rem;" id=<%=`${i}`%>>
+        <img src="#" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text"><%=Object.keys(data)[i]%></p>
+            <%for(var j=0;j<data[Object.keys(data)[i]].length;j++){%>
+                <div><%=data[Object.keys(data)[i]][j]%></div>
+            <%}%>
+        </div>
+    </div>
+   <%}%>
+   </div>
     <div>
         <p class="footer"><span class="bi bi-facebook"></span>
             <span class="bi bi-twitter"></span>

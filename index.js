@@ -2,7 +2,8 @@ const express= require("express")
 const path = require('path')
 const app = express()
 const ejs = require("ejs");
-const Dlist = require("./Doctor");
+const Dlist = require("./data/Doctor");
+const { medDict } = require("./data/Medicine");
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
@@ -23,7 +24,10 @@ app.get("/healing_heights", (req,res)=>{
 })
 
 app.get("/pharmacy", (req,res)=>{
-    res.redirect("/");
+    res.render("pharmacy",{data:medDict});
+})
+app.get("/pharmacy/:id", (req, res) => {
+    res.json({Hello:"Medicine "+`${req.params.id}`})
 })
 
 app.get("/symptom_analyzer", (req,res)=>{
