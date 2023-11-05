@@ -1,21 +1,34 @@
+require("dotenv").config()
 const express= require("express")
 const path = require('path')
 const app = express()
 const ejs = require("ejs");
+const cookieParser = require('cookie-parser');
 const Dlist = require("./data/Doctor");
 const { medDict } = require("./data/Medicine");
+const mongoose = require("mongoose");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.DB_URI, {
+        })
+    } catch (err) {
+        console.error(err);
+    }
+}
+connectDB()
+app.use(cookieParser());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use("/signin",require("./router/login"));
+app.use("/register",require("./router/register"));
 
 app.get("/", (req,res)=>{
     res.sendFile("index.html");
 })
 
 app.get("/home", (req,res)=>{
-    res.redirect("/");
-})
-
-app.get("/signin", (req,res)=>{
     res.redirect("/");
 })
 
@@ -48,6 +61,10 @@ app.get("/blood_reserves", (req,res)=>{
 })
 
 
-app.listen(3000, ()=>{
-    console.log("server started on port 3000");
+
+mongoose.connection.once("open", () => {
+    console.log("connected to MongoDB");
+    app.listen(3000, () => {
+    console.log("server running at Port 3000")
+});
 })

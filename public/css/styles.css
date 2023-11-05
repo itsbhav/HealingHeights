@@ -81,3 +81,25 @@ img {
 .appointment{
     background-image:radial-gradient(ellipse, skyblue,aliceblue);
 }
+
+.login{
+    min-height: 100vh;
+    background-image:radial-gradient(ellipse, skyblue,aliceblue);
+}
+
+.login-div{
+    border: 2px solid;
+    width: 25%;
+}
+
+.login-div-2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+}
+
+.tag{
+text-align: center;
+}
