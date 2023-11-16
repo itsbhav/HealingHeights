@@ -10,7 +10,49 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    refreshToken:String
+    name: {
+        type: String,
+        required: true,
+        default:"Ram"
+    },
+    dob: {
+        type: Date,
+        required:true
+    },
+    city: {
+        type:String
+    },
+    weight: {
+        type:Number
+    },
+    height: {
+        type:Number
+    },
+    isDiabetic: {
+        type: Boolean
+    },
+    diseases: [{
+        type: String
+    }],
+    otherComments: [
+        {
+            type:String
+        }
+    ],
+    activeAppointments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Appointment'
+    }],
+    inactiveAppointments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Appointment'
+    }],
+    cancelledAppointments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Appointment'
+    }]
+
+
 })
 
 

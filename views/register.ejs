@@ -27,7 +27,7 @@
                 <a class="nav-link" aria-current="page" href="/home">Home</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link disableit">Symptom_Analyzer</a>
+                <a class="nav-link" href="/symptom_analyzer">Symptom_Analyzer</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/book_your_visit">Book_Your_Visit</a>
@@ -45,21 +45,32 @@
 </nav>
 <br>
 <br>
-<br>
-<br>
-<br>
 <div class="container login-div">
   <div class="login-container">
       <h2 class="tag">Register</h2>
-      <form action="/register" method="post" class="login-div-2">
+      <form action="/register" method="post">
+          <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+          </div>
           <div class="form-group">
               <label for="username">Username:</label>
               <input type="text" class="form-control" id="username" name="username" required>
           </div>
-
+          <div class="form-group">
+              <label for="dob">Date of Birth (Approximate):</label>
+              <input type="date" class="form-control" id="dob" name="dob" required>
+          </div>
+          <div class="form-group">
+              <label for="city">City:</label>
+              <input type="text" class="form-control" id="city" name="city">
+          </div>
           <div class="form-group">
               <label for="password">Password:</label>
               <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <div class="tag">
+            You can Add or Edit Additional Data after SignUp
           </div>
           <div class="tag">
             <button type="submit" class="btn btn-dark">Sign up</button>

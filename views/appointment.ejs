@@ -18,6 +18,9 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <%if(cred){%>
+        <script type="module" src="/appointment.js"></script>
+        <%}%>
     <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
     <title>Book_Your_Visit</title>
 </head>
@@ -34,7 +37,7 @@
                     <a class="nav-link" aria-current="page" href="/home">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link disableit">Symptom_Analyzer</a>
+                    <a class="nav-link" href="/symptom_analyzer">Symptom_Analyzer</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link active" href="/book_your_visit">Book_Your_Visit</a>
@@ -58,13 +61,14 @@
         <legend> Basic Information: </legend>
         </fieldset>
           <label for="Name">Full Name </label>
-          <input type="text" name="Name" id="Name">
-          <label for="Hospital">Hospital/Doctor Name: </label>
-          <select id="Hospital" name="Hospital">
+          <input type="text" name="Name" id="Name" required>
+          <label for="Hospital" class="signin-please" required>Hospital/Doctor Name: </label>
+          <select id="Hospital" name="Hospital"  class="disabled-field"disabled >
             <% for (var i=0;i<data.data.length;i++){ %>
                 <option value="<%=data.data[i]%>"><%=data.data[i]%></option>
            <% }%>
           </select>
+          <%=cred%>
           <label for="date">Date</label>
           <input type="date" name="date" id="date">
           <label for="freeSlots">Your Comfortable slots</label>
@@ -84,12 +88,12 @@
           <label for="UserAdd">Address</label>
           <textarea name="userAd" id="UserAdd" cols="30" rows="10"></textarea>
           <label for="Symptoms">Describe your Symptoms</label>
-          <textarea name="symptom" id="symptom" cols="30" rows="10"></textarea>
+          <textarea name="symptom" id="symptom" cols="30" rows="10" placeholder="Should be comma separated as shown: Faint, Stroke, Stomachache"></textarea>
           <label for="tel">Contact No.</label>
-          <input type="tel" name="tel" id="tel">
-           <label for="email">Email</label>
-           <input type="email" name="email" id="email">
-          <button type="submit">Submit</button>
+          <input type="text" name="tel" id="tel" pattern="^(\+\d{0,2})?\s?\d{3}\s?\d{3}\s?\d{4}$" placeholder="+91 956 178 8888" required>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email">
+          <button type="submit" class="disabled-field" disabled>Submit</button>
     </form>
     <div>
         <p class="footer"><span class="bi bi-facebook"></span>
