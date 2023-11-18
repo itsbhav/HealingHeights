@@ -26,7 +26,6 @@ const appointmentSchema = new Schema({
     },
     symptoms:{
             type: String,
-            required:true
     },
     contact: {
         type: String,
