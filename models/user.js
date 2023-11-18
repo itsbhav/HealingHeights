@@ -31,6 +31,9 @@ const userSchema = new Schema({
     isDiabetic: {
         type: Boolean
     },
+    bloodGroup: {
+        type: String
+    },
     diseases: [{
         type: String
     }],
@@ -39,20 +42,15 @@ const userSchema = new Schema({
             type:String
         }
     ],
-    activeAppointments: [{
+    appointments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Appointment'
     }],
-    inactiveAppointments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Appointment'
-    }],
-    cancelledAppointments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Appointment'
-    }]
-
-
+    uuid: {
+        type: String,
+        default: "",
+        required:true
+    }
 })
 
 

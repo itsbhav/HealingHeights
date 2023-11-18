@@ -1,6 +1,7 @@
 const router=require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require('uuid');
 const handleNewUser = async (req, res,next) => {
   if (!req?.body?.username || !req?.body?.password) {
     return res
@@ -11,17 +12,25 @@ const handleNewUser = async (req, res,next) => {
   const duplicate = await User.findOne({ username: req.body.username }).exec();
   if (duplicate) return res.sendStatus(409);
   try {
+    const x =uuidv4();
     const newUser = await User.create({
       username: req.body.username,
       password: await bcrypt.hash(req.body.password, 10),
+      uuid: x,
+      name: req.body.name,
+      dob: req.body.dob,
+      city:req.body.city
     })
     console.log(`New User ${req.body.username} created!`);
-    newUser.password = "";
-    res.cookie('userinfo', newUser, { httpOnly: true,  expires:0 });
-    //put sameSite:None while deployment
-    res.render("dashboard", { newUser });
+    const user = {
+            id: newUser._id,
+            uuid:newUser.uuid
+        }
+    res.cookie("userinfo",user,{httpOnly:true,expires:0})
+    res.render("dashboard", { user });
   } 
   catch (err) {
+    console.log(err);
     res.sendStatus(500);
   }
 };
