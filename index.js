@@ -38,7 +38,11 @@ app.use("/register", require("./router/register"));
 app.get("/", async(req,res)=>{
     const cookie = req.cookies;
     const loginValidation = await verifyLogin(cookie);
-    if(loginValidation.login)return res.render('dashboard',{user:cookie.userinfo})
+    // console.log(loginValidation.getUser);
+    if (loginValidation.login) {
+        const appointments = await Appointment.find({ userId: loginValidation.getUser._id });
+        return res.render('dashboard', { cookieData: cookie.userinfo, user: loginValidation.getUser, appointments: appointments })
+    }
     res.sendFile(path.join(__dirname,"public","index1.html"));
 })
 app.get("/blood_reserves", (req,res)=>{
@@ -85,15 +89,25 @@ app.post("/book_your_visit", async (req, res) => {
                             }
                         );
             loginValidation.getUser.appointments.push(createAppointment._id);
-        await loginValidation.getUser.save();
-        return res.render("dashboard", { user:cookie.userinfo });
+            await loginValidation.getUser.save();
+         const appointments = await Appointment.find({ userId: loginValidation.getUser._id });
+        return res.render("dashboard", { cookieData:cookie.userinfo,user:loginValidation.getUser,appointments:appointments });
      }
     return res.sendStatus(401);          
 })
 app.get("/symptom_analyzer",async (req, res) => {
     const cookie = req.cookies;
     const loginValidation = await verifyLogin(cookie);
-    if(loginValidation.login)return res.render('dashboard',{user:cookie.userinfo})
+    if (loginValidation.login) {
+        const appointments = await Appointment.find({ userId: loginValidation.getUser._id });
+        return res.render('dashboard', { cookieData: cookie.userinfo, user: loginValidation.getUser, appointments: appointments })
+    }
+    res.redirect("/signin");
+})
+app.get("/detailed_info",async (req, res) => {
+    const cookie = req.cookies;
+    const loginValidation = await verifyLogin(cookie);
+    if (loginValidation.login) return res.render('detailed_info', { user: loginValidation.getUser });
     res.redirect("/signin");
 })
 mongoose.connection.once("open", () => {
