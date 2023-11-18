@@ -48,8 +48,7 @@ const userSchema = new Schema({
     }],
     uuid: {
         type: String,
-        default: "",
-        required:true
+        default: ""
     }
 })
 

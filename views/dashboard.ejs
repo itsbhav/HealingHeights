@@ -58,6 +58,7 @@
                         <div class="info">Date of Birth: <%=user.dob.toLocaleDateString()%></div>
                         <div class="info">City: <%=user.city%></div>
                         <a class="info" href="/detailed_info">View More</a>
+                        <form action="/logout" method="post"><button type="submit" class="info myBtn2">Logout</button></form>
                    </div>
                 </div>
             </div>
@@ -66,14 +67,18 @@
     <div class="flex">
         <h2>Symptom analyzer</h2>
     </div>
-    <div class="flex-row appointment">
+    <div class="flex-row1 appointment">
         <h2>Active Appointments</h2>
-        <h2>Cancel Appointment</h2>
     </div>
-    <div class="flex-row appointment">
+    <%appointments.filter((apt)=>{%>
+        <%if(apt.status==="active"){%>
+            <div><%=apt.hospitalOrDoctor%></div>
+       <% }%>
+    <%})%>
+    <div class="flex-row1 appointment">
         <h2>Inactive Appointments</h2>
     </div>
-    <div class="flex-row appointment">
+    <div class="flex-row1 appointment">
         <h2>Cancelled Appointments</h2>
     </div>
 </body>

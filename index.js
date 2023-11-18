@@ -104,10 +104,38 @@ app.get("/symptom_analyzer",async (req, res) => {
     }
     res.redirect("/signin");
 })
-app.get("/detailed_info",async (req, res) => {
+app.get("/detailed_info", async (req, res) => {
     const cookie = req.cookies;
     const loginValidation = await verifyLogin(cookie);
     if (loginValidation.login) return res.render('detailed_info', { user: loginValidation.getUser });
+    res.redirect("/signin");
+});
+app.get("/edit", async (req, res) => {
+    const cookie = req.cookies;
+    const loginValidation = await verifyLogin(cookie);
+    if (loginValidation.login) return res.render('edit', { user: loginValidation.getUser });
+    res.redirect("/signin");
+})
+app.post("/logout", async (req, res) => {
+    const cookie = req.cookies;
+    const loginValidation = await verifyLogin(cookie);
+    if (loginValidation.login) {
+        loginValidation.getUser.uuid = "";
+        await loginValidation.getUser.save();
+        res.clearCookie('userinfo', { httpOnly: true, expires: 0 });
+        console.log("user logged out");
+    };
+    res.redirect("/");
+})
+app.post("/edit", async (req, res) => {
+    const cookie = req.cookies;
+    const loginValidation = await verifyLogin(cookie);
+    if (loginValidation.login) {
+        loginValidation.getUser.name = req.body.Name;
+        await loginValidation.getUser.save();
+        console.log(loginValidation.getUser);
+        return res.render('detailed_info', { user: loginValidation.getUser })
+    };
     res.redirect("/signin");
 })
 mongoose.connection.once("open", () => {
