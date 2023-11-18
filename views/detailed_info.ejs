@@ -20,7 +20,7 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="/dashboard.js"></script>
+    <script type="module" src="/info.js"></script>
     <link rel="stylesheet" href="css/styles1.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -53,29 +53,50 @@
                 <div class="expandsize"></div>
                 <div class="profile">
                    <a class="nav-link" id="profile" href="#userInfo"><%=user.name%></a> 
-                   <div class="flex1" id="userInfo">
-                        <div class="info">Username: <%=user.username%></div>
-                        <div class="info">Date of Birth: <%=user.dob.toLocaleDateString()%></div>
-                        <div class="info">City: <%=user.city%></div>
-                        <a class="info" href="/detailed_info">View More</a>
-                   </div>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="flex">
-        <h2>Symptom analyzer</h2>
-    </div>
-    <div class="flex-row appointment">
-        <h2>Active Appointments</h2>
-        <h2>Cancel Appointment</h2>
-    </div>
-    <div class="flex-row appointment">
-        <h2>Inactive Appointments</h2>
-    </div>
-    <div class="flex-row appointment">
-        <h2>Cancelled Appointments</h2>
-    </div>
+    <%if(user.username){%> 
+        <div class="flex2">Username: <%= user.username %></div>
+    <%}%>
+    <%if(user.name){%> 
+        <div class="flex2">Name: <%=user.name %></div>
+    <%}%>
+    <%if(user.dob){%> 
+        <div class="flex2">Date of Birth: <%=user.dob.toLocaleDateString()%></div>
+    <%}%>
+    <%if(user.city){%> 
+        <div class="flex2">City: <%=user.city%></div>
+    <%}%>
+    <form action="/edit">
+        <button type="submit"  class="myBtn">Edit</button>
+    </form>
+    
+    <%if(user.weight){%> 
+        <div class="flex2">Weight: <%=user.weight%></div>
+    <%}%>
+    <%if(user.height){%> 
+        <div class="flex2">Height:<%=user.height%></div>
+    <%}%>
+    <%if(user.bloodGroup){%> 
+        <div class="flex2">Blood Group: <%=user.bloodGroup%></div>
+    <%}%>
+    <%if(user.isDiabetic){%>
+         <div class="flex2">Diabetic: <%=user.isDiabetic%></div>
+    <%}%>
+    <div class="flex-row appointment hide1" ><h2>Diseases</h2></div>
+    <%if(user.diseases?.length){%> 
+        <%user.diseases.forEach((disease)=>{%>
+            <div class="flex2 disease"><%=disease%></div>
+        <%})%>
+    <%}%>
+    <div class="flex-row appointment hide2"><h2>Other Comments</h2></div>
+    <%if(user.otherComments?.length){%> 
+        <%user.otherComments.forEach((disease)=>{%>
+            <div class="flex2 comment"><%=disease%></div>
+        <%})%>
+    <%}%>
 </body>
 
 </html>
