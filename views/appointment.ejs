@@ -60,6 +60,7 @@
         <fieldset>
         <legend> Basic Information: </legend>
         </fieldset>
+        <input type="hidden" name="userId" value=<%userinfo.id%>> 
           <label for="Name">Full Name </label>
           <input type="text" name="Name" id="Name" required>
           <label for="Hospital" class="signin-please" required>Hospital/Doctor Name: </label>
@@ -68,7 +69,6 @@
                 <option value="<%=data.data[i]%>"><%=data.data[i]%></option>
            <% }%>
           </select>
-          <%=cred%>
           <label for="date">Date</label>
           <input type="date" name="date" id="date">
           <label for="freeSlots">Your Comfortable slots</label>
@@ -86,9 +86,9 @@
            <% }%>
           </select>
           <label for="UserAdd">Address</label>
-          <textarea name="userAd" id="UserAdd" cols="30" rows="10"></textarea>
+          <textarea name="userAdd" id="UserAdd" cols="30" rows="10"></textarea>
           <label for="Symptoms">Describe your Symptoms</label>
-          <textarea name="symptom" id="symptom" cols="30" rows="10" placeholder="Should be comma separated as shown: Faint, Stroke, Stomachache"></textarea>
+          <textarea name="Symptoms" id="Symptoms" cols="30" rows="10" placeholder="Should be comma separated as shown: Faint, Stroke, Stomachache"></textarea>
           <label for="tel">Contact No.</label>
           <input type="text" name="tel" id="tel" pattern="^(\+\d{0,2})?\s?\d{3}\s?\d{3}\s?\d{4}$" placeholder="+91 956 178 8888" required>
           <label for="email">Email</label>

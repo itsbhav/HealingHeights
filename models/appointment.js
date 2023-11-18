@@ -6,9 +6,12 @@ const appointmentSchema = new Schema({
         type: String,
         required:true
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
     hospitalOrDoctor: {
-        type: Number,
-        default: -1,
+        type: String,
         required: true
     },
     date: {
@@ -18,10 +21,10 @@ const appointmentSchema = new Schema({
         type:Number,
     },
     address: {
-        type: String
+        type: String,
+        default:""
     },
-    symptoms:
-        {
+    symptoms:{
             type: String,
             required:true
     },
@@ -31,7 +34,18 @@ const appointmentSchema = new Schema({
     },
     email: {
         type:String
-    }
+    },
+    status: {
+        type: String,
+        default: "active",
+        required:true
+    },
+    prescriptions: [{
+        type: String
+    }],
+    comments: [
+        {type:String}
+    ]
 
 })
 

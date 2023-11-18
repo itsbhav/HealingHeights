@@ -1,6 +1,7 @@
 const router=require("express").Router();
 const User=require("../models/user")
 const bcrypt = require("bcrypt")
+const { v4: uuidv4 } = require('uuid');
 const loginUser = async (req, res,next) => {
     if (!req?.body?.username||!req?.body?.password) {
         res.status(400).json({ "message": "username and password are required" });
@@ -12,10 +13,16 @@ const loginUser = async (req, res,next) => {
     }
     const match = await bcrypt.compare(req.body.password,getUser.password);
     if (match) {
-        getUser.password = "";
-        console.log(getUser);
-        res.cookie("userinfo",getUser,{httpOnly:true,expires:0})
-        res.render("dashboard", { getUser });
+        const x = uuidv4();
+        getUser.uuid = x;
+        await getUser.save();
+        // console.log(getUser);
+        const user = {
+            id: getUser._id,
+            uuid:getUser.uuid
+        }
+        res.cookie("userinfo",user,{httpOnly:true,expires:0})
+        res.render("dashboard", { user });
     }
     else {
         res.sendStatus(401);
@@ -26,4 +33,4 @@ router.get("/",(req,res)=>{
 })
 .post("/",loginUser)
 
-module.exports=router;
+module.exports = router;
