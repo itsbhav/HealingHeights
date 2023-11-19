@@ -86,17 +86,21 @@
          <div class="flex2">Diabetic: <%=user.isDiabetic%></div>
     <%}%>
     <div class="flex-row appointment hide1" ><h2>Diseases</h2></div>
+    <div class='flex-row'>
     <%if(user.diseases?.length){%> 
         <%user.diseases.forEach((disease)=>{%>
-            <div class="flex2 disease"><%=disease%></div>
+            <div class="flex3 disease"><%=disease%></div>
         <%})%>
     <%}%>
+    </div>
     <div class="flex-row appointment hide2"><h2>Other Comments</h2></div>
+    <div class='flex-row'>
     <%if(user.otherComments?.length){%> 
         <%user.otherComments.forEach((disease)=>{%>
-            <div class="flex2 comment"><%=disease%></div>
+            <div class="flex3 comment"><%=disease%></div>
         <%})%>
     <%}%>
+    </div>
 </body>
 
 </html>

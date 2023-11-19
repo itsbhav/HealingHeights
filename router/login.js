@@ -2,7 +2,7 @@ const router=require("express").Router();
 const User=require("../models/user")
 const bcrypt = require("bcrypt")
 const { v4: uuidv4 } = require('uuid');
-const Appointment = require("../models/Appointment");
+const Appointment = require("../models/appointment");
 const loginUser = async (req, res,next) => {
     if (!req?.body?.username||!req?.body?.password) {
         res.status(400).json({ "message": "username and password are required" });
