@@ -72,15 +72,74 @@
     </div>
     <%appointments.filter((apt)=>{%>
         <%if(apt.status==="active"){%>
-            <div><%=apt.hospitalOrDoctor%></div>
+            <div class="flex">
+                <div><%=apt.hospitalOrDoctor%></div>
+                <div><%=apt.date.toLocaleDateString()%></div>
+                <div>Slot Time: 
+                     <% var i=apt.slotStart; var j=i+2;%>
+                     <%var x=" AM"; var y=" PM"; var z=" NOON";%>
+                     <%=(i%12==i)?(i%12+x):(i%12==0)?(i+z):(i%12+y)%> to
+                     <%=(j%12==j)?(j%12+x):(j%12==0)?(j+z):(j%12+y)%>
+                </div>
+                <%if(apt.scheduledTime){%>
+                    <div>Your Scheduled Time is <%=apt.scheduledTime.toLocaleString()%>, Please Visit on Time!</div>
+                 <%}%>
+                <form action=<%=`cancel/${apt._id}`%> method="post">
+                    <button class="myBtn2"type="submit">Cancel Appointment</button>
+                </form>
+            </div>
        <% }%>
     <%})%>
     <div class="flex-row1 appointment">
         <h2>Inactive Appointments</h2>
     </div>
+    <%appointments.filter((apt)=>{%>
+        <%if(apt.status==="inactive"){%>
+            <div class="flex">
+                <div><%=apt.hospitalOrDoctor%></div>
+                <div><%=apt.date.toLocaleDateString()%></div>
+                <div>Slot Time: 
+                     <% var i=apt.slotStart; var j=i+2;%>
+                     <%var x=" AM"; var y=" PM"; var z=" NOON";%>
+                     <%=(i%12==i)?(i%12+x):(i%12==0)?(i+z):(i%12+y)%> to
+                     <%=(j%12==j)?(j%12+x):(j%12==0)?(j+z):(j%12+y)%>
+                </div>
+                <%if(apt.prescriptions?.length){%>
+                    <div>Prescriptions</div>
+                  <ol>
+                    <%apt.prescriptions.forEach(element => {%>
+                          <li><%=element%></li>
+                    <%});%>
+                  </ol>
+                 <%}%>
+                <%if(apt.comments?.length){%>
+                    <div>Comments</div>
+                  <ol>
+                    <%apt.comments.forEach(element => {%>
+                          <li><%=element%></li>
+                    <%});%>
+                  </ol>
+                 <%}%>
+            </div>
+       <% }%>
+    <%})%>
     <div class="flex-row1 appointment">
         <h2>Cancelled Appointments</h2>
     </div>
+    <%appointments.filter((apt)=>{%>
+        <%if(apt.status==="cancelled"){%>
+            <div class="flex">
+                <div><%=apt.hospitalOrDoctor%></div>
+                <div><%=apt.date.toLocaleDateString()%></div>
+                <div>Slot Time: 
+                     <% var i=apt.slotStart; var j=i+2;%>
+                     <%var x=" AM"; var y=" PM"; var z=" NOON";%>
+                     <%=(i%12==i)?(i%12+x):(i%12==0)?(i+z):(i%12+y)%> to
+                     <%=(j%12==j)?(j%12+x):(j%12==0)?(j+z):(j%12+y)%>
+                </div>
+            </div>
+       <% }%>
+    <%})%>
 </body>
 
 </html>

@@ -2,7 +2,7 @@ const router=require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require('uuid');
-const Appointment = require("../models/Appointment");
+const Appointment = require("../models/appointment");
 const handleNewUser = async (req, res,next) => {
   if (!req?.body?.username || !req?.body?.password) {
     return res
@@ -29,7 +29,7 @@ const handleNewUser = async (req, res,next) => {
         }
    const appointments = await Appointment.find({ userId: newUser._id });
    res.cookie("userinfo",user,{httpOnly:true,expires:0})
-   res.render("dashboard", { user:getUser, appointments:appointments});
+   res.render("dashboard", { user:newUser, appointments:appointments});
   } 
   catch (err) {
     console.log(err);

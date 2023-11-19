@@ -9,7 +9,7 @@ const { medDict } = require("./data/Medicine");
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
 const corsOptions=require("./middleware/credentials");
-const Appointment = require("./models/Appointment");
+const Appointment = require("./models/appointment");
 const User = require('./models/user');
 const { verifyLogin } = require('./middleware/verifylogin');
 const { count } = require("console");
@@ -137,6 +137,14 @@ app.post("/edit", async (req, res) => {
         return res.render('detailed_info', { user: loginValidation.getUser })
     };
     res.redirect("/signin");
+})
+app.post('/cancel/:id', async (req, res) => {
+    const id = req?.params?.id;
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.sendStatus(404);
+    const apt= await Appointment.findOne({ _id: id });
+    apt.status = "cancelled";
+    await apt.save();
+    return res.redirect("/");
 })
 mongoose.connection.once("open", () => {
     console.log("connected to MongoDB");

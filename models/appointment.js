@@ -39,6 +39,9 @@ const appointmentSchema = new Schema({
         default: "active",
         required:true
     },
+    scheduledTime: {
+        type: Date
+    },
     prescriptions: [{
         type: String
     }],
