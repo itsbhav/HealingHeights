@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Analyzer</title>
+    <link rel="stylesheet" href="http://localhost:5000/static/styles/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="http://localhost:5000/static/script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Symptom Analyzer</h1>
+        <form id="symptomForm">
+            <label for="symptoms">Enter symptoms and select them:</label>
+            <select class="js-select2" id="symptoms"  multiple="multiple" name="symptoms"style="width: 300px;">
+            {% for i in range(symptomsArray|length) %}
+           <option value="{{ symptomsArray[i] }}" >{{ symptomsArray[i] }}</option>
+            {% endfor %}
+           </select>
+            <button type="button" id="predictButton">Predict Disease</button>
+        </form>
+
+        <div id="result">
+            <h3 id="x">Predictions:</h3>
+            <br>
+            <p id="rfPrediction"></p>
+            <p id="nbPrediction"></p>
+            <p id="svmPrediction"></p>
+            <p id="finalPrediction"></p>
+            <p id="Description"></p>
+            <p id="Specialist"></p>
+            <p id="Precautions"></p>
+            <p id="Doctors"></p>
+            <br>
+            <br>
+            <h3 id="y">Doctor Details:</h3>
+            <br>
+            <p id="d1"></p>
+            <p id="a1"></p>
+            <p id="s1"></p>
+            <br>
+            <p id="d2"></p>
+            <p id="a2"></p>
+            <p id="s2"></p>
+            <br>
+            <p id="d3"></p>
+            <p id="a3"></p>
+            <p id="s3"></p>
+        </div>
+    </div>
+     <script>
+        $(document).ready(function() {
+            $('.js-select2').select2();
+        });
+    </script>
+</body>
+</html>

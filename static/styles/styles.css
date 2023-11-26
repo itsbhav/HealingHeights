@@ -1,0 +1,96 @@
+/* Reset some default styles for better consistency */
+body, h1, h2, p, form, button {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle, #eee 10%, #bbb 30%, #888 50%, #444 70%, #000);
+    color: #fff;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice,
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #000 !important;
+        }
+
+        /* Add a CSS style to set the font color of the Select2 dropdown options to black */
+        .select2-container--default .select2-results__option {
+            color: #000 !important;
+        }
+
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #222;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #4285f4;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #3455c1;
+}
+
+#result {
+    margin-top: 20px;
+}
+
+h3 {
+    color: #4285f4;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+h5{
+    color: #4285f4;
+    display:inline;
+}
+
+#x{
+    visibility: hidden;
+}
+
+#y{
+    visibility: hidden;
+}

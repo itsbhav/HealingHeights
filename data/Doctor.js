@@ -1,2 +1,31 @@
-const list = ["Dr. A K Singh, Patna"];
+const list =[
+  "Dr. Pratyush Kumar,2 near Masjid opp. PMCH gate Dujra Diara Patna Bihar 800004 Patna,General Practitioner",
+  "Dr. Neeraj Sinha,Guinea motors Boring Canal Rd and beside Indraprasth Apartment Anandpuri Bihar 800001,Endocrinologist",
+  "Dr. Pradeep Kumar,A P C Colony Rd opposite PEOPLE'S CO-OPERATIVE COMMUNITY HALL near LOHIYA PARK PC Colony Kankarbagh Patrakar Nagar Patna Bihar 800020,Endocrinologist",
+  "Dr. Prashant Kumar,\"Aarogya Health Centre Khajpura Raja Bazar Bailey Road Patna - 800020 (Pillar No: 7)\",Endocrinologist",
+  "Dr. Mathur Prasad,\"Rd Number 3 Patna Bihar 800016\",Dermatologist",
+  "Dr. Sri Rupa,\"209 J29W Sunrise Sai Ozone Plaza Bailey Road RPS More Bailey Road Landmark: Near Sunrise Sai Ozone Plaza Patna\",Dermatologist",
+  "Dr. Shobhana Jha,\"G-62 Rajni Path Landmark: Opposite Savera Cancer Hospital Patna\",Dermatologist",
+  "Dr. Uday Kumar,\"Bazar Samiti Mukhopadhya Colony Patna Bihar 800006\",Gastroenterologist",
+  "Dr. Asif Iqbal,\"Mediversal Hospital Kankarbagh Patna Bihar 800020\",Gastroenterologist",
+  "Dr. Vaibhav Raj,\"Kiva Multi-speciality &Liver Gastro Gynae Centre Hari Niwas 50metre West of State Bank of India Patna Bihar 800027\",Gastroenterologist",
+  "Dr. Vikash Kumar Vaibhav,\"Post office Patna Bihar 800006\",Orthopedic surgeon",
+  "Dr. Khursheed Alam,\"Sri Deo Nursing Home Lalbagh Patna Bihar 800004\",Orthopedic surgeon",
+  "Dr. Rakesh Kumar,\"Matrichhaya Ortho & Health Care P C Colony G/43 P C Colony Kankarbagh Patna - 800020 (Opposite Sri Ram Hospital)\",Orthopedic surgeon",
+  "Dr. Bishwanath Kumar,\"A-38 opp. Kendriya Vidyalaya Road Jogipur Kankarbag Besides V-Mart Mall Patna Bihar 800020\",Neurologist",
+  "Dr. H. R. P. Varma,\"Mahatma Gandhi Nagar Patna Bihar 800020\",Neurologist",
+  "Dr. Abhishek Kumar,\"Near passport seva kendra Landmark: Ashiananagar Patna\",Neurologist",
+  "Dr. A. K. Jha,\"C/20 Main Road No 1 Tempo Stand Rd near Kankarbag Besides V-Mart Mall Patna Bihar 800020\",General Practitioner",
+  "Dr. Vijan Sharan,\"302 SAGUNA MORE NEAR HDFC BANK ATM Landmark: west of Shatabdi Golamber Patna\",General Practitioner",
+  "Dr. Vikas Singh,\"Mediversal Hospital Doctor's Colony Bihar 800020\",Cardiologist",
+  "Dr. Vikas Kumar,N/5 Professor Colony Jogipur Kankarbagh Chitragupta Nagar Patna Bihar 800020,Cardiologist",
+  "Dr. Ranjan Kumar,Shiva Enclave Kankarbagh Main Road. Kankarbagh Patna - 800020 (Near Jalan Shop),Cardiologist",
+  "Dr. S K Sinha,Chandralay Heart Hospital B-29 Patrakar Nagar B/W Kendriya Vidyalaya and HDFC Bank Kankarbagh Patna Bihar 800020,Vascular Surgeon",
+  "Dr. Om Prakash Kumar Sah,Dr. Om Prakash Kumar Sah Clinic O- 44 Doctors Colony Patna Bihar 800020,Vascular Surgeon",
+  "Dr. Deepak Kumar Jha,A60 P C Colony Rd opposite Lohiya Nagar Park Housing Board Colony Kankarbagh Patrakar Nagar Bihar 800023,Vascular Surgeon",
+  "Dr. S C Jha,Panchlok Diagonostics Bailey Road Near Kotwali Thana Dak Bunglow Road Patna - 800001 (Opposite Of Taramandal),Allergist",
+  "Dr. Prakash Sinha,SBI COLONY Raja Bazar Bailey Road Sheikhpura Patna - 800014 (Front Of Pillar No -70),Allergist",
+  "Dr. Vaibhav Shankar,Advance Chest Care Boring Canal Road-Boring Road Boring Road Patna - 800001 (Near Adjascent to Bikaner Sweet House),Allergist"
+];
+;
 module.exports= { list };

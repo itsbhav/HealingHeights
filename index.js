@@ -12,7 +12,10 @@ const corsOptions=require("./middleware/credentials");
 const Appointment = require("./models/appointment");
 const User = require('./models/user');
 const { verifyLogin } = require('./middleware/verifylogin');
-const { count } = require("console");
+const httpProxy = require('http-proxy');
+const proxy = httpProxy.createProxyServer();
+
+const flaskBackendUrl = 'http://127.0.0.1:5000';
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const connectDB = async () => {
@@ -55,7 +58,26 @@ app.get("/home", (req,res)=>{
 app.get("/healing_heights", (req,res)=>{
     res.redirect("/");
 })
-
+app.use('/static', async (req, res) => {
+    // Forward static file requests to Flask
+    const cookie = req.cookies;
+    const loginValidation = await verifyLogin(cookie);
+    // console.log(loginValidation.getUser);
+    if (loginValidation.login) {
+      return proxy.web(req, res, { target: flaskBackendUrl });
+    }
+    return res.redirect("/signin");
+});
+app.post('/predict', async (req, res) => {
+    const cookie = req.cookies;
+    const loginValidation = await verifyLogin(cookie);
+    // console.log(loginValidation.getUser);
+    if (loginValidation.login) {
+      return proxy.web(req, res, { target: flaskBackendUrl });
+    }
+    return res.redirect("/signin");
+    
+});
 app.get("/pharmacy", (req,res)=>{
     res.render("pharmacy",{data:medDict});
 })
@@ -99,10 +121,9 @@ app.get("/symptom_analyzer",async (req, res) => {
     const cookie = req.cookies;
     const loginValidation = await verifyLogin(cookie);
     if (loginValidation.login) {
-        const appointments = await Appointment.find({ userId: loginValidation.getUser._id });
-        return res.render('dashboard', { cookieData: cookie.userinfo, user: loginValidation.getUser, appointments: appointments })
+        return res.redirect("/static");
     }
-    res.redirect("/signin");
+   return res.redirect("/signin");
 })
 app.get("/detailed_info", async (req, res) => {
     const cookie = req.cookies;
@@ -153,3 +174,8 @@ mongoose.connection.once("open", () => {
 });
 
 })
+
+proxy.on('error', (err, req, res) => {
+    console.error(err);
+    res.status(500).send('Proxy Error');
+});
