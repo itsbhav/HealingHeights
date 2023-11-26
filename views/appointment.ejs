@@ -18,6 +18,9 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <%if(cred){%>
         <script type="module" src="/appointment.js"></script>
         <%}%>
@@ -51,7 +54,12 @@
                 </ul>
                 <div class="expandsize"></div>
                 <div>
-                   <a class="nav-link"href="/signin">Sigin/Register</a> 
+                  <%if(cred){%>
+               <a class="nav-link"href="/detailed_info">My Profile</a>
+                   <%}
+                   else {%>
+                    <a class="nav-link"href="/signin">Sigin/Register</a> 
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -61,14 +69,15 @@
         <legend> Basic Information: </legend>
         </fieldset>
         <input type="hidden" name="userId" value=<%userinfo.id%>> 
-          <label for="Name">Full Name </label>
+        <label for="Name">Full Name </label>
           <input type="text" name="Name" id="Name" required>
           <label for="Hospital" class="signin-please" required>Hospital/Doctor Name: </label>
-          <select id="Hospital" name="Hospital"  class="disabled-field"disabled >
+          <select id="Hospital" name="Hospital"  class="disabled-field  js-select2" disabled >
             <% for (var i=0;i<data.data.length;i++){ %>
                 <option value="<%=data.data[i]%>"><%=data.data[i]%></option>
            <% }%>
           </select>
+          <a href="/symptom_analyzer">Unsure About Doctor Choice? Go To Symptom Analyzer</a>
           <label for="date">Date</label>
           <input type="date" name="date" id="date">
           <label for="freeSlots">Your Comfortable slots</label>
@@ -110,5 +119,10 @@
             </tr>
         </table>
     </div>
+     <script>
+        $(document).ready(function() {
+            $('.js-select2').select2();
+        });
+    </script>
 </body>
 </html>
