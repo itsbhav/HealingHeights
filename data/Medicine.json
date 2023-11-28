@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Aspirin",
+    "description": "Aspirin is a common pain reliever that belongs to the drug class known as salicylates. It is used to reduce fever, relieve mild to moderate pain from conditions such as muscle aches, toothaches, menstrual cramps, and headaches.",
+    "usage": "Take with a full glass of water as directed by your doctor. It is usually taken every 4 to 6 hours as needed. Follow all directions on the product package.",
+    "price": 5.99,
+    "url":"images/medicines/1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Ibuprofen",
+    "description": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to relieve pain and reduce inflammation. It is commonly used for conditions such as arthritis, muscle aches, toothaches, and menstrual cramps.",
+    "usage": "Take with food or a glass of milk to reduce the risk of stomach upset. Dosage is based on your medical condition and response to treatment.",
+    "price": 7.99,
+    "url":"images/medicines/2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Acetaminophen",
+    "description": "Acetaminophen is a pain reliever and a fever reducer. It is used to treat many conditions such as headache, muscle aches, arthritis, backache, toothaches, colds, and fevers.",
+    "usage": "Take this medication by mouth with or without food, as directed by your doctor. Use a medication-measuring device to carefully measure the prescribed dose.",
+    "price": 6.49,
+    "url":"images/medicines/3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Loratadine",
+    "description": "Loratadine is an antihistamine that provides relief of allergy symptoms such as watery eyes, runny nose, itching eyes/nose, and sneezing. It is also used to relieve itching and hives.",
+    "usage": "Take this medication by mouth with or without food, usually once a day or as directed by your doctor or the product package.",
+    "price": 8.99,
+    "url":"images/medicines/4.jpeg"
+  },
+  {
+    "id": 5,
+    "name": "Omeprazole",
+    "description": "Omeprazole is a proton pump inhibitor (PPI) used to treat conditions where the stomach produces too much acid, such as ulcers and gastroesophageal reflux disease (GERD).",
+    "usage": "Take this medication by mouth as directed by your doctor, usually once daily before a meal. If you are self-treating, follow all directions on the product package.",
+    "price": 12.99,
+    "url":"images/medicines/5.jpg"
+  }
+]

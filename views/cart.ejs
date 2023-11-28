@@ -1,0 +1,49 @@
+<!-- views/cart.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles2.css">
+  <title>Shopping Cart</title>
+</head>
+<body>
+
+  <header>
+    <h1>Pharmacy Store</h1>
+  </header>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/cart">Cart</a>
+  </nav>
+
+  <div class="container">
+    <h2>Shopping Cart</h2>
+    <% if (cartMedicines.length === 0) { %>
+      <p>Your cart is empty.</p>
+    <% } else { %>
+      <% cartMedicines.forEach(medicine => { %>
+        <div class="cart-item">
+          <img src="<%= medicine.url %>" width=100 height="auto" alt="<%= medicine.name %>">
+          <div>
+            <h3><%= medicine.name %></h3>
+            <p>Price: $<%= medicine.price.toFixed(2) %></p>
+          </div>
+        </div>
+      <% }); %>
+      <form action="/razorpay" method="post">
+        <h2 style="color: red;">Not Functional Now, Since we are not RazorPay Merchant</h2>
+        <div style="color: red;">This Functionality Will be Activated once We get a Merchant Account!</div>
+        <button class="checkout-btn" type="submit">Proceed to Checkout Using RazorPay</button> 
+      </form>
+      <form action="/cash" method="get">
+        <h2 style="color:green;">Use This Instead</h2>
+        <button class="checkout-btn" type="submit">Proceed to Checkout Using Cash On Delivery</button>
+      </form>
+    <% } %>
+  </div>
+
+</body>
+</html>

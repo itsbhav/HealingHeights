@@ -1,0 +1,57 @@
+<!-- views/razorpay.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles2.css">
+  <title>Razorpay Checkout</title>
+</head>
+<body>
+
+  <header>
+    <h1>Pharmacy Store</h1>
+  </header>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/cart">Cart</a>
+  </nav>
+
+  <div class="container razorpay-container">
+    <h2>Razorpay Checkout</h2>
+    <button id="rzp-button" class="razorpay-btn">Pay with Razorpay</button>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      var options = {
+        key: '<%= keyId %>',
+        amount: '<%= amount %>',
+        currency: 'INR',
+        name: 'Your Pharmacy',
+        description: 'Medicine Purchase',
+        order_id: '<%= orderId %>',
+        handler: function(response) {
+          window.location.href = '/razorpay/success';
+        },
+        prefill: {
+          name: 'Your Name',
+          email: 'your.email@example.com',
+          contact: '9999999999'
+        },
+        theme: {
+          color: '#3498db'
+        }
+      };
+
+      var rzp = new Razorpay(options);
+
+      document.getElementById('rzp-button').onclick = function() {
+        rzp.open();
+      };
+    </script>
+  </div>
+
+</body>
+</html>

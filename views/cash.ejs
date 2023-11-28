@@ -1,0 +1,35 @@
+<!-- views/razorpay.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles2.css">
+  <title>Cash Checkout</title>
+</head>
+<body>
+
+  <header>
+    <h1>Pharmacy Store</h1>
+  </header>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/cart">Cart</a>
+  </nav>
+
+  <div class="container razorpay-container">
+    <h2>Cash Checkout</h2>
+    <h2>amount:$ <%=amount/100%> </h2>
+    <form action="/cash" method="post">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name"required>
+    <label for="Add">Address</label>
+    <input type="text" name="Add" id="Add" required>
+    <button id="rzp-button" class="razorpay-btn">Book Order and Pay On Delivery</button>   
+    </form>
+  </div>
+
+</body>
+</html>
