@@ -1,0 +1,37 @@
+<!-- views/medicineDetails.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles2.css">
+  <title>Medicine Details</title>
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="title">Pharmacy Store/h1>
+  </header>
+
+  <nav class="navigation">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/cart" class="nav-link">Cart</a>
+  </nav>
+
+  <div class="container">
+    <h2 class="section-title">Medicine Details</h2>
+    <div class="medicine-details">
+      <img src="../<%= medicine.url %>" width=200 height=50 alt="<%= medicine.name %>" class="medicine-image">
+      <h3 class="medicine-name"><%= medicine.name %></h3>
+      <p class="medicine-description"><%= medicine.description %></p>
+      <p class="medicine-usage"><strong>Usage:</strong> <%= medicine.usage %></p>
+      <p class="medicine-price"><strong>Price:</strong> $<%= medicine.price.toFixed(2) %></p>
+      <form action="/addToCart/<%= medicine.id %>" method="post" class="add-to-cart-form">
+        <button type="submit" class="add-to-cart-button">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -12,10 +12,11 @@ const corsOptions=require("./middleware/credentials");
 const Appointment = require("./models/appointment");
 const User = require('./models/user');
 const { verifyLogin } = require('./middleware/verifylogin');
-const reqlist = require("./data/request");
 const httpProxy = require('http-proxy');
 const fs = require('fs');
+const medicines = require("./data/Medicine.json");
 const proxy = httpProxy.createProxyServer();
+const Razorpay = require('razorpay');
 
 const flaskBackendUrl = 'http://127.0.0.1:5000';
 app.use(express.json());
@@ -29,6 +30,10 @@ const connectDB = async () => {
     }
 }
 connectDB()
+const razorpay = new Razorpay({
+  key_id: 'your_razorpay_key_id',
+  key_secret: 'your_razorpay_key_secret',
+});
 app.use(cors(corsOptions))
 app.use((req, res, next) => {
     res.header("Allow-Access-Control-Credentials", true);
@@ -80,11 +85,95 @@ app.post('/predict', async (req, res) => {
     return res.redirect("/signin");
     
 });
-app.get("/pharmacy", (req,res)=>{
-    res.render("pharmacy",{data:medDict});
+app.get('/pharmacy', (req, res) => {
+  res.render('allMedicines', { medicines });
+});
+app.get('/pharmacy/:id', (req, res) => {
+  const medicineId = parseInt(req.params.id);
+  const medicine = medicines.find((med) => med.id === medicineId);
+  res.render('medicineDetails', { medicine });
+});
+
+app.get("/search", (req, res) => {
+    const filteredMedicines = medicines.filter(medicine => {
+        const searchTerm = (req.query.search || '').toLowerCase();
+        const matchName = medicine.name.toLowerCase().includes(searchTerm);
+        const matchDescription = medicine.description.toLowerCase().includes(searchTerm);
+        const matchUsage = medicine.usage.toLowerCase().includes(searchTerm);
+        return matchName || matchDescription || matchUsage;
+    });
+    res.render("allMedicines", { medicines: filteredMedicines });
+});
+
+app.post('/addToCart/:id', (req, res) => {
+  const medicineId = parseInt(req.params.id);
+  const cart = req.cookies.cart || [];
+  cart.push(medicineId);
+  res.cookie('cart', cart);
+  res.redirect('/pharmacy');
+});
+
+app.get('/cart', (req, res) => {
+  const cart = req.cookies.cart || [];
+  const cartMedicines = cart.map((id) => medicines.find((med) => med.id === id));
+  res.render('cart', { cartMedicines });
+});
+app.post('/razorpay', async (req, res) => {
+  const cart = req.cookies.cart || [];
+  const cartMedicines = cart.map((id) => medicines.find((med) => med.id === id));
+
+  const amountInPaise = cartMedicines.reduce((total, medicine) => {
+    return total + Math.round(medicine.price * 100);
+  }, 0);
+
+  const options = {
+    amount: amountInPaise,
+    currency: 'INR',
+    receipt: 'order_receipt',
+    payment_capture: 1,
+  };
+
+  try {
+      const response = await razorpay.orders.create(options);
+      console.log(response);
+    const orderId = response.id;
+    res.render('razorpay', {  amount: amountInPaise });  //orderId, keyId: razorpay.key_id,
+  } catch (error) {
+    console.error('Razorpay Error:', error);
+    res.status(500).send(`Internal Server Error, Since Razorpay is not accepting new merchants as of now, will be activated at the earliest.`);
+  }
+});
+
+app.post('/razorpay/success', (req, res) => {
+  res.clearCookie('cart');
+  res.render('success');
+});
+
+// Razorpay cancel route
+app.get('/razorpay/cancel', (req, res) => {
+  res.render('cancel');
+});
+
+app.get("/cash", (req, res) => {
+    const cart = req.cookies.cart || [];
+  const cartMedicines = cart.map((id) => medicines.find((med) => med.id === id));
+
+  const amountInPaise = cartMedicines.reduce((total, medicine) => {
+    return total + Math.round(medicine.price * 100);
+  }, 0);
+    res.render("cash", { amount: amountInPaise });
 })
-app.get("/pharmacy/:id", (req, res) => {
-    res.json({Hello:"Medicine "+`${req.params.id}`})
+app.post("/cash", (req, res) => {
+    const cart = req.cookies.cart || [];
+    const cartMedicines = cart.map((id) => medicines.find((med) => med.id === id));
+    var x = "Orders for \t";
+    cartMedicines.forEach((med) => {
+        x += `${med.id}, \t`
+    });
+    x += `recieved for ${req.body.Add} by ${req.body.name}\n`;
+    fs.appendFileSync(path.join(__dirname, "data", "orders.txt"), x);
+    res.clearCookie('cart');
+    res.send("Done");
 })
 
 app.get("/book_your_visit", async (req, res) => {
@@ -178,23 +267,99 @@ app.post('/cancel/:id', async (req, res) => {
     return res.redirect("/");
 })
 app.get("/request", (req, res) => {
-    res.render("request",{data:reqlist});
+    fs.readFile(path.join(__dirname, "data", "request.json"), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return;
+        }
+        // Step 2: Parse the JSON data
+        const jsonData = JSON.parse(data);
+       return  res.render("request",{data:jsonData});
+    });
+   
 })
 app.post("/request", (req, res) => {
-    reqlist.push({ name: req.body.name, tel: req.body.tel, bloodGroup: req.body.bloodGroup, email: req.body?.email || "" })
-    // res.redirect("/blood_reserves");
-    return res.render("request",{data:reqlist})
+    const newObject = {
+  name: req.body.name,
+  tel: req.body.tel,
+  bloodGroup: req.body.bloodGroup,
+  email: req.body?.email || ""
+    };
+    fs.readFile(path.join(__dirname,"data","request.json"), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return;
+        }
+
+        // Step 2: Parse the JSON data
+        const jsonData = JSON.parse(data);
+
+        // Step 3: Add the new object to the array
+        jsonData.push(newObject);
+
+        // Step 4: Write the updated data back to the file
+        fs.writeFile(path.join(__dirname,"data","request.json"), JSON.stringify(jsonData, null, 2), (err) => {
+            if (err) {
+                console.error('Error writing file:', err);
+            } else {
+                console.log('Data added to reqlist.json successfully.');
+            }
+        });
+         // res.redirect("/blood_reserves");
+        return res.render("request", { data: jsonData });
+    });
+   
 })
 app.get("/donate", (req, res) => {
-    res.render("donate",{data:reqlist});
+    fs.readFile(path.join(__dirname, "data", "request.json"), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return;
+        }
+        // Step 2: Parse the JSON data
+        const jsonData = JSON.parse(data);
+       return res.render("donate",{data:jsonData});
+    });
 })
 app.post("/donate", (req, res) => {
-    donlist.push({ name: req.body.name, tel: req.body.tel, bloodGroup: req.body.bloodGroup, email: req.body?.email || "" })
-    // res.redirect("/blood_reserves");
-    console.log(donlist);
-    console.log(reqlist);
-    return res.render("donate",{data:reqlist})
-})
+    const newObject = {
+        name: req.body.name,
+        tel: req.body.tel,
+        bloodGroup: req.body.bloodGroup,
+        email: req.body?.email || ""
+    };
+    fs.readFile(path.join(__dirname, "data", "donate.json"), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return;
+        }
+
+        // Step 2: Parse the JSON data
+        const jsonData = JSON.parse(data);
+
+        // Step 3: Add the new object to the array
+        jsonData.push(newObject);
+
+        // Step 4: Write the updated data back to the file
+        fs.writeFile(path.join(__dirname, "data", "donate.json"), JSON.stringify(jsonData, null, 2), (err) => {
+            if (err) {
+                console.error('Error writing file:', err);
+            } else {
+                console.log('Data added to reqlist.json successfully.');
+            }
+        });
+        // res.redirect("/blood_reserves");
+    });
+    fs.readFile(path.join(__dirname, "data", "request.json"), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return;
+        }
+        // Step 2: Parse the JSON data
+        const jsonData = JSON.parse(data);
+        return res.render("donate", { data: jsonData });
+    });
+});
 mongoose.connection.once("open", () => {
     console.log("connected to MongoDB");
     app.listen(3000, () => {
