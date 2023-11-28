@@ -49,7 +49,7 @@
                 </ul>
                 <div class="expandsize"></div>
                 <div>
-                   <a class="nav-link"href="/signin">Sigin/Register</a> 
+                   <a class="nav-link"href="/detailed_info">My Profile</a> 
                 </div>
             </div>
         </div>
@@ -57,32 +57,28 @@
     <form action="/edit" method="post" class="flex editData" >
           <label for="Name">Name </label>
           <input type="text" name="Name" value=<%=user.name%> id="Name" required>
-          <select id="Hospital" name="Hospital" >
-          </select>
-          <label for="date">Date</label>
-          <input type="date" name="date" id="date">
-          <label for="freeSlots">Your Comfortable slots</label>
-          <select id="freeSlots" name="freeSlots">
-            <% for (var i=8,j=10;i<20;i+=2,j+=2){ %>
-                <%var a="AM"%>
-                <%var b="AM"%>
-                <%if(i>=12){%>
-                     <%a="PM"%>
-                <%}%>
-                <%if(j>=12){%>
-                     <%b="PM"%>
-                <%}%>
-                <option value="<%=i%>"><%=(i%12==0)?(12):(i%12)%>&nbsp;<%=a%>&nbsp;to&nbsp;<%=(j%12==0)?(12):(j%12)%>&nbsp;<%=b%></option>
-           <% }%>
-          </select>
-          <label for="UserAdd">Address</label>
-          <textarea name="userAdd" id="UserAdd" cols="30" rows="10"></textarea>
-          <label for="Symptoms">Describe your Symptoms</label>
-          <textarea name="Symptoms" id="Symptoms" cols="30" rows="10" placeholder="Should be comma separated as shown: Faint, Stroke, Stomachache"></textarea>
-          <label for="tel">Contact No.</label>
-          <input type="text" name="tel" id="tel" pattern="^(\+\d{0,2})?\s?\d{3}\s?\d{3}\s?\d{4}$" placeholder="+91 956 178 8888" >
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email">
+          <label for="date">Date of Birth</label>
+          <input type="date" value=<%=new Date(user.dob).toISOString().split('T')[0] %> name="dob" id="date">
+          <label for="city">City </label>
+          <input type="text" name="city" value=<%=user.city%> id="city">
+
+            <label for="weight">Weight (kg)</label>
+            <input type="number" name="weight" value="<%= user.weight %>" id="weight">
+
+            <label for="height">Height (cm)</label>
+            <input type="number" name="height" value="<%= user.height %>" id="height">
+
+            <label for="isDiabetic">Is Diabetic?</label>
+            <input type="checkbox" name="isDiabetic" <%= user.isDiabetic ? 'checked' : '' %> id="isDiabetic">
+
+            <label for="bloodGroup">Blood Group</label>
+            <input type="text" name="bloodGroup" value="<%= user.bloodGroup %>" id="bloodGroup">
+
+            <label for="diseases">Diseases</label>
+            <input type="text" name="diseases" value="<%= user.diseases.join(', ') %>" id="diseases">
+
+            <label for="otherComments">Other Comments</label>
+            <textarea name="otherComments" id="otherComments" rows="4"><%= user.otherComments.join(',') %></textarea>
           <button type="submit" class="disabled-field">Submit</button>
     </form>
     <div>

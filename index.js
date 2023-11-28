@@ -12,7 +12,9 @@ const corsOptions=require("./middleware/credentials");
 const Appointment = require("./models/appointment");
 const User = require('./models/user');
 const { verifyLogin } = require('./middleware/verifylogin');
+const reqlist = require("./data/request");
 const httpProxy = require('http-proxy');
+const fs = require('fs');
 const proxy = httpProxy.createProxyServer();
 
 const flaskBackendUrl = 'http://127.0.0.1:5000';
@@ -153,6 +155,14 @@ app.post("/edit", async (req, res) => {
     const loginValidation = await verifyLogin(cookie);
     if (loginValidation.login) {
         loginValidation.getUser.name = req.body.Name;
+        loginValidation.getUser.dob = req.body.dob;
+        loginValidation.getUser.city = req.body.city;
+        loginValidation.getUser.weight = req.body.weight;
+        loginValidation.getUser.height = req.body.height;
+        loginValidation.getUser.isDiabetic = req.body.isDiabetic==="on"?"true":"false";
+        loginValidation.getUser.bloodGroup = req.body.bloodGroup;
+        loginValidation.getUser.diseases = req.body.diseases.split(',');
+        loginValidation.getUser.otherComments = req.body.otherComments.split(',');
         await loginValidation.getUser.save();
         console.log(loginValidation.getUser);
         return res.render('detailed_info', { user: loginValidation.getUser })
@@ -166,6 +176,24 @@ app.post('/cancel/:id', async (req, res) => {
     apt.status = "cancelled";
     await apt.save();
     return res.redirect("/");
+})
+app.get("/request", (req, res) => {
+    res.render("request",{data:reqlist});
+})
+app.post("/request", (req, res) => {
+    reqlist.push({ name: req.body.name, tel: req.body.tel, bloodGroup: req.body.bloodGroup, email: req.body?.email || "" })
+    // res.redirect("/blood_reserves");
+    return res.render("request",{data:reqlist})
+})
+app.get("/donate", (req, res) => {
+    res.render("donate",{data:reqlist});
+})
+app.post("/donate", (req, res) => {
+    donlist.push({ name: req.body.name, tel: req.body.tel, bloodGroup: req.body.bloodGroup, email: req.body?.email || "" })
+    // res.redirect("/blood_reserves");
+    console.log(donlist);
+    console.log(reqlist);
+    return res.render("donate",{data:reqlist})
 })
 mongoose.connection.once("open", () => {
     console.log("connected to MongoDB");

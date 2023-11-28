@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles1.css">
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script type="module" src="/editdata.js"></script> -->
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+    <title>Book_Your_Visit</title>
+</head>
+<body class="appointment">
+    <div class="container-fluid navbar">
+        <a style="margin-left: 1rem;"class="navbar-nav navbar-brand nav-link "href="/">Visit Home</a>
+    </div>
+     <form action="/request" method="post" class="flex editData">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="tel">Contact:</label>
+        <input type="text" name="tel" id="tel" pattern="^(\+\d{0,2})?\s?\d{3}\s?\d{3}\s?\d{4}$" placeholder="+91 956 178 8888" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="Bg">Blood Group</label>
+        <input type="text" id="Bg" name="bloodGroup" required>
+
+        <button type="submit" class="disabled-field">Submit</button>
+    </form>
+     <div class="flex-row1">
+        Urgent Needs
+        <%for(var i=0;i<data.length;i++){%>
+            <div class="flex">
+            <%Object.entries(data[i]).forEach(([key, value]) => {%>
+         <div ><%=key%>:  <%=value%></div>
+       <%});%>
+       </div>
+        <%}%>
+    </div>
+    <div>
+        <p class="footer"><span class="bi bi-facebook"></span>
+            <span class="bi bi-twitter"></span>
+            <span class="bi bi-instagram"></span>
+            <span class="bi bi-youtube"></span></p>
+        <br>
+        <table class="footer">
+            <tr>
+                <td>PRIVACY POLICY | TERMS OF USE</td>
+            </tr>
+            <tr>
+                <td>Copyright &copy; 2023 Healing Heights</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
