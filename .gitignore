@@ -1,3 +1,5 @@
 .env
 node_modules
 data/orders.txt
+data/donate.json
+data/request.json
