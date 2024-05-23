@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     // This ensures that the DOM is fully loaded before trying to attach the event listener
-    console.log("hi");
     // Add event listener for button click
     var predictButton = document.getElementById('predictButton');
     if (predictButton) {
